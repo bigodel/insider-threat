@@ -4,9 +4,9 @@ import java.util.Date;
 public class Parser {
    
     public Parser() {}
-    public Date parseDate(String input){
+    
+    private Date parseDate(String input){
    
-//        String [] line = sc.nextLine().split(",");
         String data = input.split(" ")[0]; 
         String hora = input.split(" ")[1];
 
@@ -22,16 +22,31 @@ public class Parser {
             infoToDate.add(Integer.parseInt(horas));
         }
         Date date = new Date(infoToDate.get(2) - 1900,infoToDate.get(0),infoToDate.get(1),
-                infoToDate.get(3),infoToDate.get(4),infoToDate.get(5));
+                    infoToDate.get(3),infoToDate.get(4),infoToDate.get(5));
 
-        //       System.out.println(hourNumbers[1]);
-//        System.out.println(date);
- //       System.out.println(infoToDate.get(2) + " " + infoToDate.get(1) + " " + infoToDate.get(0) + " " + 
-//                infoToDate.get(3) + " " + infoToDate.get(4) + " " + infoToDate.get(5));
         infoToDate.clear();
 
         return date;
+    }
 
+    public HttpLog parseHttpLogLine(String logLine){
+
+        String [] line = logLine.split(",");
+
+        String id = line[0].substring(1, line[0].length()-1);
+        Date date = parseDate(line[1]);
+
+        return new HttpLog (id,date,line[2],line[3],line[4]);
+
+    }
+    public DeviceLog parseDeviceLogLine(String logLine){
+
+        String [] line = logLine.split(",");
+
+        String id = line[0].substring(1, line[0].length()-1);
+        Date date = parseDate(line[1]);
+
+        return new DeviceLog (id,date,line[2],line[3],line[4]);
 
     }
 }

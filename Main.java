@@ -17,8 +17,11 @@ public class Main {
              * para a classe parser posteriormente */
             while(sc.hasNextLine()){
                 
-                Date dataTeste = parse.parseDate(sc.nextLine().split(",")[1]);
-                System.out.println(dataTeste);
+                LogEntry log = parse.parseDeviceLogLine(sc.nextLine());
+
+                /* To implement
+                 * Tree.add(log);
+                 */
             }
         }
         catch(FileNotFoundException e) { System.exit(0);
