@@ -1,6 +1,6 @@
 import java.util.Date;
 
-public class HttpLog extends CommonLogs {
+public class HttpLog extends CommonLog {
    
     String url;
 

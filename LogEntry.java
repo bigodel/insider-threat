@@ -5,4 +5,6 @@ abstract public class LogEntry {
     public LogEntry(String id){
         this.id = id;
     }
+
+    public String toString(){ return this.id;}
 }

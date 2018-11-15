@@ -1,6 +1,6 @@
 import java.util.Date;
 
-public class DeviceLog extends CommonLogs {
+public class DeviceLog extends CommonLog {
    
     String activity;
 

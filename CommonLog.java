@@ -1,11 +1,11 @@
 import java.util.Date;
-abstract public class CommonLogs extends LogEntry {
+abstract public class CommonLog extends LogEntry {
     
     Date date;
     String user;
     String pc;
 
-    public CommonLogs(String id , Date date, String user , String pc){
+    public CommonLog(String id , Date date, String user , String pc){
         super(id);
         this.date = date;
         this.user = user;
