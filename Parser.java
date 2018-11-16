@@ -4,6 +4,10 @@ import java.util.Scanner;
 import java.io.*;
 import java.util.NoSuchElementException;
 
+/**
+ *
+ * @author cyborg
+ */
 public class Parser {
    
     private enum LogType {
@@ -13,8 +17,11 @@ public class Parser {
     private Scanner sc;
     private LogType logType;
 
-    
-    public void setFile( File path ){
+    /**
+     *
+     * @param path File to be read
+     */
+    public final void setFile( File path ){
         try {
             sc = new Scanner(path);
             
@@ -48,6 +55,10 @@ public class Parser {
         }
     }
 
+    /**
+     *
+     * @return Returns a LogEntry that can be more easily analysed 
+     */
     public LogEntry parseNextLine(){
         
         if(sc.hasNextLine()){
@@ -61,12 +72,23 @@ public class Parser {
         else throw new NoSuchElementException("There aren't any lines to be read anymore");
     }
 
+    /**
+     * Default constructor
+     */
     public Parser() {}
    
-    public ParseFile(File path){
+    /**
+     * Constructor that calls setFile to the chosen file
+     * @param path File to be parsed
+     */
+    public Parser(File path){
         this.setFile(path);
     }
 
+    /**
+     * Does the same as Scanner.hasNext()
+     * @return True if hasn't reached end of file, false otherwise
+     */
     public boolean hasNextLine(){
         return sc.hasNext();
     }
@@ -95,7 +117,11 @@ public class Parser {
         return date;
     }
 
-    
+    /**
+     *
+     * @param logLine line to be parsed
+     * @return LDAPLog class representation of the parsed line
+     */
     public LDAPLog parseLDAPLogLine(String logLine){
 
         String [] line = logLine.split(",");
@@ -104,6 +130,11 @@ public class Parser {
 
     }
 
+    /**
+     *
+     * @param logLine
+     * @return LDAPLog class representation of the parsed line
+     */
     public CommonLog parseCommonLogLine(String logLine){
 
         String [] line = logLine.split(",");
