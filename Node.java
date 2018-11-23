@@ -6,7 +6,7 @@ public class Node {
     int [] histogram = new int [24];
 
     public Node() {
-        children = new ArrayList<Node> ();
+        children = new ArrayList<> ();
     }
 
     public void addChildren(Node node){

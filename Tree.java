@@ -76,6 +76,7 @@ public class Tree {
         Activity activity = null;
         if(pc.children.size() == 0){
             activity = new Activity();
+            pc.children.add(activity);
         }
         
         else{

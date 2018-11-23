@@ -1,3 +1,6 @@
+
+import java.util.Arrays;
+
 public class UserField extends Node {
 
     String employee_name;
@@ -24,6 +27,7 @@ public class UserField extends Node {
     public String toString()
     {
         StringBuilder string = new StringBuilder(employee_name + " " + user_id);
+        string.append(" Histogram : ").append(Arrays.toString(histogram));
         for(Node node : this.children){
            string.append("\n").append(node);
         }

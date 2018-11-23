@@ -16,6 +16,6 @@ public class Action {
    @Override
    public String toString()
    {
-       return this.id + this.action; 
+       return this.id + " " + this.action; 
    }
 }

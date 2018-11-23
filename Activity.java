@@ -19,12 +19,12 @@ public class Activity extends Node{
     
     public String toString()
     {
-        StringBuilder string = new StringBuilder("Http \n");
-        string.append(actions.get(0).toString());
-        string.append("USB \n");
-        string.append(actions.get(1).toString());
-        string.append("LOGIN \n");
-        string.append(actions.get(2).toString());
+        StringBuilder string = new StringBuilder("Http ");
+        string.append(actions.get(0).toString() + "\n");
+        string.append("USB ");
+        string.append(actions.get(1).toString() +"\n");
+        string.append("LOGIN ");
+        string.append(actions.get(2).toString()+"\n");
         return string.toString();
     }
 }
