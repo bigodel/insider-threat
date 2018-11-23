@@ -12,8 +12,7 @@ abstract public class CommonLog extends LogEntry {
 
     /**
      *
-     * Default Constructor
-     * @param id action id
+     * Default Constructor * @param id action id
      * @param date moment the action took place
      * @param user User that made the action
      * @param pc Pc where the action was made
@@ -25,4 +24,8 @@ abstract public class CommonLog extends LogEntry {
         this.pc = pc;
 
     }
+
+    public Date getDate() { return this.date ;}
+
+    public abstract String getActivity();
 }

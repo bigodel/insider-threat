@@ -21,4 +21,9 @@ public class HttpLog extends CommonLog {
         super(id,date,user,pc);
         this.url = url;
     }
+
+    public String getActivity()
+    {
+        return this.url;
+    }
 }

@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Date;
 
-public abstract class Activity extends NodeField{
+public class Activity extends Node{
 
     /*private enum Indexes{
         Http = 0, USB = 1, LOGIN = 2;

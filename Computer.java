@@ -1,9 +1,9 @@
-public class Computer extends NodeField {
+public class Computer extends Node {
     
     String user_pc;
 
     public Computer (String user_pc)
     {
-        this.user_pc = user.pc;
+        this.user_pc = user_pc;
     }
 }

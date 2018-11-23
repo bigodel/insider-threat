@@ -21,4 +21,9 @@ public class DeviceLog extends CommonLog {
         super(id,date,user,pc);
         this.activity = activity;
     }
+    
+    public String getActivity()
+    {
+        return this.activity;
+    }
 }

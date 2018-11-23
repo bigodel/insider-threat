@@ -21,4 +21,9 @@ public class LoginLog extends CommonLog {
         super(id,date,user,pc);
         this.login = login;
     }
+
+    public String getActivity()
+    {
+        return this.login;
+    }
 }
