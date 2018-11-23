@@ -20,4 +20,13 @@ public class UserField extends Node {
     {
         this.user_id = user_id;
     }
+
+    public String toString()
+    {
+        StringBuilder string = new StringBuilder(employee_name + " " + user_id);
+        for(Node node : this.children){
+           string.append("\n").append(node);
+        }
+        return string.toString();
+    }
 }

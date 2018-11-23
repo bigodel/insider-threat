@@ -27,22 +27,23 @@ public class Tree {
 
            currentLogType = LogType.LDAPLog;
         }*/
-
-    //    root.addChildren(
-
+        
+        addCommonLog((CommonLog) log);
     }
 
     private void addCommonLog(CommonLog log)
     {
-        Node user = null;
-
-        for(Node node : root.children){
-            UserField userNode = (UserField) node;
-            if(userNode.user_id.equals(log.user)){
-                user = userNode;
+        UserField user = null;
+        
+        if (!root.children.isEmpty()){
+            for(Node node : root.children){
+                UserField userNode = (UserField) node;
+                if(userNode.user_id.equals(log.user)){
+                    user = userNode;
+                }
             }
         }
-
+        
         if(user == null){
             user = new UserField(log.user);
             root.children.add(user);
@@ -57,41 +58,70 @@ public class Tree {
         else {
             timeWindow = (TimeWindow) user.children.get(0);
         }
-
-        Node pc = null;
+        
+        Computer pc = null;
         for(Node node : timeWindow.children){
             Computer computerNode = (Computer) node;
             if(computerNode.user_pc.equals(log.pc)){
                 pc = computerNode;
             }
         }
-
+        
         if(pc == null)
         {
             pc = new Computer(log.pc);
             timeWindow.children.add(pc);
         }
         
-        Activity act = null;
+        Activity activity = null;
         if(pc.children.size() == 0){
-            act = new Activity();
+            activity = new Activity();
         }
-
-        else{
-            act = (Activity) pc.children.get(0);
-        }
-
-        switch(currentLogType){
         
-            case Http:
-                act.actions.get(0).add( new Action (log.getActivity(),log.getDate()) );
-            case Device:
-                act.actions.get(1).add( new Action (log.getActivity(),log.getDate()) );
-            case Login:
-                act.actions.get(2).add( new Action (log.getActivity(),log.getDate()) );
+        else{
+            activity = (Activity) pc.children.get(0);
         }
+        
+        Action action = new Action(log.id, log.getActivity(), log.getDate());
+        boolean succesfullInsertion = false;
+        
+        switch(currentLogType){
+            
+            case Http:
+                if (!activity.actions.get(0).contains(action)){
+                    activity.actions.get(0).add(action);
+                    succesfullInsertion = true;
+                }
+                break;
+            case Device:
+                
+                if (!activity.actions.get(1).contains(action)){
+                    activity.actions.get(1).add(action);
+                    succesfullInsertion = true;
+                    break;
+                }
+            case Login:
+                if (!activity.actions.get(2).contains(action)){
+                    activity.actions.get(2).add(action);
+                    succesfullInsertion = true;
+                }
+                break;
+        }
+        if(succesfullInsertion){
+            int hourOfAction = log.date.getHours();
+            user.histogram[hourOfAction] += 1;
+            pc.histogram[hourOfAction] += 1;
+            activity.histogram[hourOfAction] += 1;
+        }
+    }
 
-
+    public String toString()
+    {
+        StringBuilder string = new StringBuilder("Tree \n");
+        for(Node node : root.children ){
+            string.append(node).append("\n");
+        }
+        return string.toString();
     }
 
     

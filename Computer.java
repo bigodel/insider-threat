@@ -6,4 +6,14 @@ public class Computer extends Node {
     {
         this.user_pc = user_pc;
     }
+
+    public String toString()
+    {
+        StringBuilder string = new StringBuilder("used_pc : " + this.user_pc + "\n");
+
+        for(Node node : this.children){
+           string.append("\n").append(node);
+        }
+        return string.toString();
+    }
 }

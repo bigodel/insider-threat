@@ -22,4 +22,13 @@ public class TimeWindow extends Node{
     {
         return endTime;
     }
+
+    public String toString()
+    {
+        StringBuilder string = new StringBuilder("Pcs");
+        for(Node node : this.children){
+           string.append("\n").append(node);
+        }
+        return string.toString();
+    }
 }
