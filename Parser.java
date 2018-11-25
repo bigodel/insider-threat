@@ -10,7 +10,7 @@ import java.util.NoSuchElementException;
  */
 public class Parser {
    
-    private enum LogType {
+    public enum LogType {
         Device, Http, Logon, LDAP
     }
 
@@ -23,7 +23,8 @@ public class Parser {
      */
     public final void setFile( File path ){
         try {
-            sc = new Scanner(path);
+            FileReader file = new FileReader(path.getPath());
+            sc = new Scanner(file);
             
             if(path.getParent().contains("LDAP")){
                 logType = LogType.LDAP;
@@ -70,6 +71,11 @@ public class Parser {
 
         }
         else throw new NoSuchElementException("There aren't any lines to be read anymore");
+    }
+
+    public LogType getLogType()
+    {
+        return logType;
     }
 
     /**

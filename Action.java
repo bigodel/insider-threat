@@ -1,12 +1,22 @@
 import java.util.Date;
 
-public class Action {
+/**
+ *
+ * @author cyborg
+ */
+abstract public class Action extends Node{
    
    String id;
    String action;
    Date date;
 
-   public Action (String id, String action ,Date date)
+    /**
+     *
+     * @param id
+     * @param action
+     * @param date
+     */
+    public Action (String id, String action ,Date date)
    {
     this.id = id;
     this.action = action;

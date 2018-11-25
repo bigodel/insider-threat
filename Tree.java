@@ -83,27 +83,27 @@ public class Tree {
             activity = (Activity) pc.children.get(0);
         }
         
-        Action action = new Action(log.id, log.getActivity(), log.getDate());
+        Action action;
         boolean succesfullInsertion = false;
         
         switch(currentLogType){
             
             case Http:
-                if (!activity.actions.get(0).contains(action)){
-                    activity.actions.get(0).add(action);
+                action = new Url(log.id, log.getActivity(), log.getDate());
+                if(activity.addAction(action)){
                     succesfullInsertion = true;
                 }
                 break;
             case Device:
                 
-                if (!activity.actions.get(1).contains(action)){
-                    activity.actions.get(1).add(action);
+                action = new Usb(log.id, log.getActivity(), log.getDate());
+                if(activity.addAction(action)){
                     succesfullInsertion = true;
-                    break;
                 }
+                break;
             case Login:
-                if (!activity.actions.get(2).contains(action)){
-                    activity.actions.get(2).add(action);
+                action = new Login(log.id, log.getActivity(), log.getDate());
+                if(activity.addAction(action)){
                     succesfullInsertion = true;
                 }
                 break;
@@ -118,27 +118,27 @@ public class Tree {
 
     public String toString()
     {
+        /* teste */
+      /*  if(currentLogType == LogType.Http){
+
+            StringBuilder string = new StringBuilder("Tree \n");
+            Node node = root.children.get(0);
+            string.append(node).append("\n");
+            return string.toString();
+        }*/
+
         StringBuilder string = new StringBuilder("Tree \n");
         for(Node node : root.children ){
             string.append(node).append("\n");
         }
         return string.toString();
+
+        /*Version below with histograms only*/
     }
-
-    
-    private final class TreeLevels{
-    
-        public static final int root = 0;
-        public static final int user = 1;
-        public static final int timeWindow = 2;
-        public static final int pc = 3;
-        public static final int activity = 4;
-
-    }
-
+   /* 
     private final class ActivityIndexes{
         public static final int Http = 0;
         public static final int USB = 1;
         public static final int LOGIN = 2;
-    }
+    }*/
 }
