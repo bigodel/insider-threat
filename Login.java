@@ -12,9 +12,9 @@ import java.util.Date;
 
 public class Login extends Action {
 
-    public Login(/*String id,*/ String action, Date date)
+    public Login(String action, Date date)
     {
-        super(/*id,*/action,date);
+        super(action,date);
     }
     
     @Override

@@ -28,6 +28,8 @@ public class Parser {
             
             if(path.getParent().contains("LDAP")){
                 logType = LogType.LDAP;
+                // skips unused line
+                sc.nextLine();
             }
 
             else switch(path.getName()){

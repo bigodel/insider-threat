@@ -4,9 +4,9 @@ import java.util.Date;
 public class Url extends Action {
    
 
-    public Url(/*String id,*/ String action, Date date)
+    public Url(String action, Date date)
     {
-        super(/*id,*/action,date);
+        super(action,date);
     }
 
     @Override

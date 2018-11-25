@@ -15,17 +15,31 @@ public class LDAPLog extends LogEntry {
     /**
      *
      * @param employee_name Name of the employee
-     * @param id employee's id 
+     * @param user_id employee's id
      * @param email employee's
      * @param domain employee's domain of work
      * @param role employee's role of work
      */
-    public LDAPLog(String employee_name, String id,String email , String domain, String role)
+    public LDAPLog(String employee_name, String user_id,String domain , String email, String role)
     {
-        super(id);
+        super(null);
         this.employee_name = employee_name;
+        this.user_id = user_id;
         this.domain = domain;
         this.email = email;
         this.role = role;
+    }
+
+    @Override
+    public String toString(){
+        StringBuilder string = new StringBuilder();
+        string.append(employee_name);
+        string.append(user_id);
+        string.append(domain);
+        string.append(email);
+        string.append(role);
+
+
+        return string.toString();
     }
 }

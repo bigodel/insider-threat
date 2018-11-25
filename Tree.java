@@ -46,7 +46,7 @@ public class Tree {
             for(Node node : root.children){
                 UserField userNode = (UserField) node;
                 if(userNode.user_id != null &&
-                    userNode.user_id.equals("DTAA/" + log.user_id)){
+                    userNode.user_id.contains(log.user_id)){
                    
                     user = userNode;
                 }

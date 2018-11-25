@@ -12,9 +12,9 @@ import java.util.Date;
 
 public class Usb extends Action {
 
-    public Usb(/*String id, */String action, Date date)
+    public Usb(String action, Date date)
     {
-        super(/*id,*/action,date);
+        super(action,date);
     }
     
     @Override
