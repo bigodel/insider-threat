@@ -6,10 +6,11 @@ import java.util.Date;
  */
 public class LDAPLog extends LogEntry {
    
-    String employee_name;
-    String domain;
-    String email;
-    String role;
+    public String employee_name;
+    public String user_id;
+    public String domain;
+    public String email;
+    public String role;
     
     /**
      *

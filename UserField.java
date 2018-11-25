@@ -19,6 +19,13 @@ public class UserField extends Node {
         this.role = role;
     }
 
+    public UserField(LDAPLog log)
+    {
+        this.employee_name = log.employee_name;
+        this.domain = log.domain;
+        this.email = log.email;
+        this.role = log.role;
+    }
     public UserField(String user_id)
     {
         this.user_id = user_id;
@@ -32,5 +39,21 @@ public class UserField extends Node {
            string.append("\n").append(node);
         }
         return string.toString();
+    }
+
+    public void updateFields(String employee_name,
+            String domain, String email, String role)
+    {
+        boolean missingInfo;
+
+        missingInfo = this.employee_name == null |this.domain == null | this.email == null | this.role == null;
+
+
+        if(missingInfo){
+            this.employee_name = employee_name;
+            this.domain = domain;
+            this.email = email;
+            this.role = role;
+        }
     }
 }

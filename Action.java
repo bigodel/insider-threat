@@ -6,7 +6,7 @@ import java.util.Date;
  */
 abstract public class Action extends Node{
    
-   String id;
+   //String id;
    String action;
    Date date;
 
@@ -16,9 +16,9 @@ abstract public class Action extends Node{
      * @param action
      * @param date
      */
-    public Action (String id, String action ,Date date)
+    public Action (/*String id*/ String action ,Date date)
    {
-    this.id = id;
+//    this.id = id;
     this.action = action;
     this.date = date;
    } 
@@ -26,6 +26,6 @@ abstract public class Action extends Node{
    @Override
    public String toString()
    {
-       return this.id + " " + this.action; 
+       /*return this.id + " " + */ return this.action; 
    }
 }

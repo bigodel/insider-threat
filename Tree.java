@@ -2,7 +2,7 @@ public class Tree {
     
     
     private enum LogType {
-        Http, Device, Login, LDAPLog;
+        Http, Device, Login, LDAP;
     }
     LogType currentLogType;
     Node root;
@@ -23,12 +23,44 @@ public class Tree {
 
            currentLogType = LogType.Device;
         }
-        /*else if (log instanceof LDAPLog){
+        else if (log instanceof LDAPLog){
 
-           currentLogType = LogType.LDAPLog;
-        }*/
-        
-        addCommonLog((CommonLog) log);
+           currentLogType = LogType.LDAP;
+        }
+
+        switch(currentLogType) {
+            case LDAP:
+            addLDAPLog((LDAPLog) log);
+            break;
+            
+            default:
+            addCommonLog((CommonLog) log);
+        }
+    }
+
+    private void addLDAPLog(LDAPLog log)
+    {
+        UserField user = null;
+
+        if (!root.children.isEmpty()){
+            for(Node node : root.children){
+                UserField userNode = (UserField) node;
+                if(userNode.user_id != null &&
+                    userNode.user_id.equals("DTAA/" + log.user_id)){
+                   
+                    user = userNode;
+                }
+            }
+        }
+    
+        if(user == null){
+            user = new UserField(log);
+            root.children.add(user);
+        }
+
+        else{
+            user.updateFields(log.employee_name, log.domain, log.email, log.role);
+        }
     }
 
     private void addCommonLog(CommonLog log)
@@ -89,20 +121,20 @@ public class Tree {
         switch(currentLogType){
             
             case Http:
-                action = new Url(log.id, log.getActivity(), log.getDate());
+                action = new Url(/*log.id, */log.getActivity(), log.getDate());
                 if(activity.addAction(action)){
                     succesfullInsertion = true;
                 }
                 break;
             case Device:
                 
-                action = new Usb(log.id, log.getActivity(), log.getDate());
+                action = new Usb(/*log.id, */ log.getActivity(), log.getDate());
                 if(activity.addAction(action)){
                     succesfullInsertion = true;
                 }
                 break;
             case Login:
-                action = new Login(log.id, log.getActivity(), log.getDate());
+                action = new Login(/*log.id, */ log.getActivity(), log.getDate());
                 if(activity.addAction(action)){
                     succesfullInsertion = true;
                 }

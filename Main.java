@@ -10,9 +10,9 @@ public class Main {
         Parser parser = new Parser();
         //parser.setFile(new File("r1/device.csv"));
         ArrayList<File> files = new ArrayList<File>();
-       // files.add(new File("r1/device.csv"));
-        files.add(new File("r1/http.csv"));
-        //files.add(new File("r1/logon.csv"));
+        files.add(new File("r1/device.csv"));
+//        files.add(new File("r1/http.csv"));
+        files.add(new File("r1/LDAP/2010-01.csv"));
         Tree tree = new Tree();
         //        parser.setFile(new File("r1/LDAP/2009-12.csv"));
 

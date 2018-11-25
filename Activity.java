@@ -41,8 +41,11 @@ public class Activity extends Node{
     public String toString()
     {
         StringBuilder string = new StringBuilder();
+        string.append("Http : ");
         string.append(children.get(0).toString()).append("\n");
+        string.append("USB : ");
         string.append(children.get(1).toString()).append("\n");
+        string.append("Login : ");
         string.append(children.get(2).toString()).append("\n");
         return string.toString();
     }
