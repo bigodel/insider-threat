@@ -1,15 +1,23 @@
 import java.util.ArrayList;
+import java.util.Date ;
 
 public class Node {
 
-    ArrayList<Node> children;
-    int [] histogram = new int [24];
+    public ArrayList<Node> children;
+    public int[] histogram = new int [24];
 
-    public Node() {
+    public Node()
+    {
         children = new ArrayList<> ();
     }
 
-    public void addChildren(Node node){
+    public void addChildren(Node node)
+    {
         children.add(node);
+    }
+
+    public void incrementHistogram(Date date)
+    {
+        histogram[date.getHours()] += 1;
     }
 }

@@ -1,39 +1,41 @@
-public class Tree {
+import java.util.Date;
 
-
-    private enum LogType {
+public class Tree
+{
+    private enum LogType
+    {
         Http, Device, Login, LDAP;
     }
+
     LogType currentLogType;
     Node root;
 
-    public Tree(){
+    public Tree()
+    {
         root = new Node ();
     }
 
-    public void addLogEntry(LogEntry log){
-
-        if (log instanceof HttpLog){
-           currentLogType = LogType.Http;
+    public void addLogEntry(LogEntry log)
+    {
+        if (log instanceof HttpLog) {
+            currentLogType = LogType.Http;
         }
-        else if (log instanceof LoginLog){
-           currentLogType = LogType.Login;
+        else if (log instanceof LoginLog) {
+            currentLogType = LogType.Login;
         }
-        else if (log instanceof DeviceLog){
-
-           currentLogType = LogType.Device;
+        else if (log instanceof DeviceLog) {
+            currentLogType = LogType.Device;
         }
-        else if (log instanceof LDAPLog){
-
-           currentLogType = LogType.LDAP;
+        else if (log instanceof LDAPLog) {
+            currentLogType = LogType.LDAP;
         }
 
-        switch(currentLogType) {
-            case LDAP:
+        switch (currentLogType) {
+        case LDAP:
             addLDAPLog((LDAPLog) log);
             break;
 
-            default:
+        default:
             addCommonLog((CommonLog) log);
         }
     }
@@ -42,24 +44,25 @@ public class Tree {
     {
         UserField user = null;
 
-        if (!root.children.isEmpty()){
-            for(Node node : root.children){
+        if (!root.children.isEmpty()) {
+            for (Node node : root.children) {
                 UserField userNode = (UserField) node;
-                if(userNode.getUser_id() != null &&
-                    userNode.getUser_id().contains(log.getUser_id())){
+
+                if (userNode.getUser_id() != null &&
+                    userNode.getUser_id().contains(log.getUser_id())) {
 
                     user = userNode;
                 }
             }
         }
 
-        if(user == null){
+        if (user == null) {
             user = new UserField(log);
             root.children.add(user);
         }
-
-        else{
-            user.updateFields(log.getEmployee_name(), log.getDomain(), log.getEmail(), log.getRole());
+        else {
+            user.updateFields(log.getEmployee_name(), log.getDomain(),
+                              log.getEmail(), log.getRole());
         }
     }
 
@@ -67,16 +70,17 @@ public class Tree {
     {
         UserField user = null;
 
-        if (!root.children.isEmpty()){
-            for(Node node : root.children){
+        if (!root.children.isEmpty()) {
+            for (Node node : root.children) {
                 UserField userNode = (UserField) node;
-                if(userNode.getUser_id().equals(log.getUser())){
+
+                if (userNode.getUser_id().equals(log.getUser())) {
                     user = userNode;
                 }
             }
         }
 
-        if(user == null){
+        if (user == null) {
             user = new UserField(log.getUser());
             root.children.add(user);
         }
@@ -92,76 +96,73 @@ public class Tree {
         }
 
         Computer pc = null;
-        for(Node node : timeWindow.children){
+        for (Node node : timeWindow.children) {
             Computer computerNode = (Computer) node;
-            if(computerNode.getUser_pc().equals(log.getPc())){
+            if (computerNode.getUser_pc().equals(log.getPc())) {
                 pc = computerNode;
             }
         }
 
-        if(pc == null)
-        {
+        if (pc == null) {
             pc = new Computer(log.getPc());
             timeWindow.children.add(pc);
         }
 
         Activity activity = null;
-        if(pc.children.size() == 0){
+        if (pc.children.size() == 0) {
             activity = new Activity();
             pc.children.add(activity);
         }
-
-        else{
+        else {
             activity = (Activity) pc.children.get(0);
         }
 
         Action action;
         boolean succesfullInsertion = false;
 
-        switch(currentLogType){
-
+        switch (currentLogType) {
         case Http:
             action = new Url(log.getActivity(), log.getDate());
-            if(activity.addAction(action)){
+
+            if (activity.addAction(action)) {
                 succesfullInsertion = true;
             }
-                break;
-            case Device:
 
-                action = new Usb(log.getActivity(), log.getDate());
-                if(activity.addAction(action)){
-                    succesfullInsertion = true;
-                }
-                break;
-            case Login:
-                action = new Login(log.getActivity(), log.getDate());
-                if(activity.addAction(action)){
-                    succesfullInsertion = true;
-                }
-                break;
+            break;
+        case Device:
+            action = new Usb(log.getActivity(), log.getDate());
+
+            if (activity.addAction(action)) {
+                succesfullInsertion = true;
+            }
+
+            break;
+        case Login:
+            action = new Login(log.getActivity(), log.getDate());
+
+            if (activity.addAction(action)) {
+                succesfullInsertion = true;
+            }
+
+            break;
         }
-        if(succesfullInsertion){
-            int hourOfAction = log.getDate().getHours();
-            user.histogram[hourOfAction] += 1;
-            pc.histogram[hourOfAction] += 1;
-            activity.histogram[hourOfAction] += 1;
+        if (succesfullInsertion) {
+            Date dateOfAction = log.getDate();
+            user.incrementHistogram(dateOfAction);
+            pc.incrementHistogram(dateOfAction);
+            activity.incrementHistogram(dateOfAction);
         }
     }
 
     @Override
     public String toString()
     {
-
         StringBuilder string = new StringBuilder("Tree \n");
-        for(Node node : root.children ){
+
+        for (Node node : root.children) {
             string.append(node).append("\n");
         }
+
         return string.toString();
     }
-   /*
-     private final class ActivityIndexes{
-        public static final int Http = 0;
-        public static final int USB = 1;
-        public static final int LOGIN = 2;
-    }*/
 }
