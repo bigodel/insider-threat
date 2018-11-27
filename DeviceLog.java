@@ -6,7 +6,7 @@ import java.util.Date;
  */
 public class DeviceLog extends CommonLog {
    
-    String activity;
+    private String activity;
 
     /**
      * Default Constructor

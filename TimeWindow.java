@@ -2,8 +2,8 @@ import java.util.Date;
 
 public class TimeWindow extends Node{
    
-    Date beginTime;
-    Date endTime;
+    private Date beginTime;
+    private Date endTime;
     
     public TimeWindow() {}
 
@@ -23,6 +23,7 @@ public class TimeWindow extends Node{
         return endTime;
     }
 
+    @Override
     public String toString()
     {
         StringBuilder string = new StringBuilder("Pcs");

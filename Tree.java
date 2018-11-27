@@ -45,8 +45,8 @@ public class Tree {
         if (!root.children.isEmpty()){
             for(Node node : root.children){
                 UserField userNode = (UserField) node;
-                if(userNode.user_id != null &&
-                    userNode.user_id.contains(log.user_id)){
+                if(userNode.getUser_id() != null &&
+                    userNode.getUser_id().contains(log.getUser_id())){
                    
                     user = userNode;
                 }
@@ -59,7 +59,7 @@ public class Tree {
         }
 
         else{
-            user.updateFields(log.employee_name, log.domain, log.email, log.role);
+            user.updateFields(log.getEmployee_name(), log.getDomain(), log.getEmail(), log.getRole());
         }
     }
 
@@ -70,14 +70,14 @@ public class Tree {
         if (!root.children.isEmpty()){
             for(Node node : root.children){
                 UserField userNode = (UserField) node;
-                if(userNode.user_id.equals(log.user)){
+                if(userNode.getUser_id().equals(log.getUser())){
                     user = userNode;
                 }
             }
         }
         
         if(user == null){
-            user = new UserField(log.user);
+            user = new UserField(log.getUser());
             root.children.add(user);
         }
         
@@ -94,14 +94,14 @@ public class Tree {
         Computer pc = null;
         for(Node node : timeWindow.children){
             Computer computerNode = (Computer) node;
-            if(computerNode.user_pc.equals(log.pc)){
+            if(computerNode.getUser_pc().equals(log.getPc())){
                 pc = computerNode;
             }
         }
         
         if(pc == null)
         {
-            pc = new Computer(log.pc);
+            pc = new Computer(log.getPc());
             timeWindow.children.add(pc);
         }
         
@@ -141,31 +141,22 @@ public class Tree {
                 break;
         }
         if(succesfullInsertion){
-            int hourOfAction = log.date.getHours();
+            int hourOfAction = log.getDate().getHours();
             user.histogram[hourOfAction] += 1;
             pc.histogram[hourOfAction] += 1;
             activity.histogram[hourOfAction] += 1;
         }
     }
 
+    @Override
     public String toString()
     {
-        /* teste */
-      /*  if(currentLogType == LogType.Http){
-
-            StringBuilder string = new StringBuilder("Tree \n");
-            Node node = root.children.get(0);
-            string.append(node).append("\n");
-            return string.toString();
-        }*/
 
         StringBuilder string = new StringBuilder("Tree \n");
         for(Node node : root.children ){
             string.append(node).append("\n");
         }
         return string.toString();
-
-        /*Version below with histograms only*/
     }
    /* 
     private final class ActivityIndexes{

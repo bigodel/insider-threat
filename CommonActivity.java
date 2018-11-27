@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 
 class CommonActivity extends Node
 {
@@ -16,7 +15,7 @@ class CommonActivity extends Node
     {
         if(!actions.contains(action)){
             actions.add(action);
-            this.histogram[action.date.getHours()] +=1;
+            this.histogram[action.getDate().getHours()] +=1;
             return true;
         }
         return false;

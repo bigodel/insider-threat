@@ -7,14 +7,13 @@ import java.util.Date;
 abstract public class Action extends Node{
    
    //String id;
-   String action;
-   Date date;
+   private String action;
+   private Date date;
 
     /**
      *
-     * @param id
-     * @param action
-     * @param date
+     * @param action The action that was performed 
+     * @param date The date when the action was performed
      */
     public Action (/*String id*/ String action ,Date date)
    {
@@ -28,4 +27,20 @@ abstract public class Action extends Node{
    {
        /*return this.id + " " + */ return this.action; 
    }
+
+    /**
+     *
+     * @return Returns the performed action
+     */
+    public String getAction() {
+        return action;
+    }
+
+    /**
+     *
+     * @return Returns the date when the action was performed
+     */
+    public Date getDate() {
+        return date;
+    }
 }

@@ -1,6 +1,10 @@
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ *
+ * @author cyborg
+ */
 public class Activity extends Node{
 
     /*private enum Indexes{
@@ -10,6 +14,10 @@ public class Activity extends Node{
     //public ArrayList < ArrayList<Action> > actions; 
     //public ArrayList <Node> actions;
 
+    /**
+     *
+     */
+
     public Activity () 
     {
        // actions = new ArrayList< ArrayList < Action >> ();
@@ -18,6 +26,11 @@ public class Activity extends Node{
         children.add(new CommonActivity ());
     }
 
+    /**
+     *
+     * @param action Adds action to the user's list of actions 
+     * @return returns true if actions wasn't already stored and false otherwise
+     */
     public boolean addAction(Action action){
         CommonActivity act = null;
 
@@ -31,7 +44,7 @@ public class Activity extends Node{
             act = (CommonActivity) children.get(2);
         }
         if(act != null && act.addAction(action)){
-            histogram[action.date.getHours()]+=1;
+            histogram[action.getDate().getHours()]+=1;
             return true;
         }
         return false;

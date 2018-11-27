@@ -6,11 +6,11 @@ import java.util.Date;
  */
 public class LDAPLog extends LogEntry {
    
-    public String employee_name;
-    public String user_id;
-    public String domain;
-    public String email;
-    public String role;
+    private String employee_name;
+    private String user_id;
+    private String domain;
+    private String email;
+    private String role;
     
     /**
      *
@@ -41,5 +41,25 @@ public class LDAPLog extends LogEntry {
 
 
         return string.toString();
+    }
+
+    public String getEmployee_name() {
+        return employee_name;
+    }
+
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public String getDomain() {
+        return domain;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getRole() {
+        return role;
     }
 }

@@ -5,7 +5,7 @@
  */
 abstract public class LogEntry {
     
-    String id;
+    private String id;
 
     /**
      *
@@ -16,4 +16,8 @@ abstract public class LogEntry {
     }
 
     public String toString(){ return this.id;}
+
+    public String getId() {
+        return id;
+    }
 }

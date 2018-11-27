@@ -6,7 +6,7 @@ import java.util.Date;
  */
 public class LoginLog extends CommonLog {
    
-    String login;
+    private String login;
 
     /**
      * Default Constructor
@@ -25,5 +25,9 @@ public class LoginLog extends CommonLog {
     public String getActivity()
     {
         return this.login;
+    }
+
+    public String getLogin() {
+        return login;
     }
 }
