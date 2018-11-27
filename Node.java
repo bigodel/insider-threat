@@ -3,15 +3,23 @@ import java.util.Date ;
 
 public class Node {
 
-    public ArrayList<Node> children;
-    public int[] histogram = new int [24];
+    private ArrayList<Node> children;
+    private int[] histogram = new int [24];
+
+    public ArrayList<Node> getChildren() {
+        return children;
+    }
+
+    public int[] getHistogram() {
+        return histogram;
+    }
 
     public Node()
     {
         children = new ArrayList<> ();
     }
 
-    public void addChildren(Node node)
+    final public void addChildren(Node node)
     {
         children.add(node);
     }

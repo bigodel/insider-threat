@@ -21,9 +21,9 @@ public class Activity extends Node{
     public Activity () 
     {
        // actions = new ArrayList< ArrayList < Action >> ();
-        children.add(new CommonActivity ());
-        children.add(new CommonActivity ());
-        children.add(new CommonActivity ());
+        addChildren(new CommonActivity ());
+        addChildren(new CommonActivity ());
+        addChildren(new CommonActivity ());
     }
 
     /**
@@ -35,16 +35,16 @@ public class Activity extends Node{
         CommonActivity act = null;
 
         if(action instanceof Url){
-            act = (CommonActivity) children.get(0);
+            act = (CommonActivity) getChildren().get(0);
         }
         else if(action instanceof Usb){
-            act = (CommonActivity) children.get(1);
+            act = (CommonActivity) getChildren().get(1);
         }
         else if(action instanceof Login){
-            act = (CommonActivity) children.get(2);
+            act = (CommonActivity) getChildren().get(2);
         }
         if(act != null && act.addAction(action)){
-            histogram[action.getDate().getHours()]+=1;
+            incrementHistogram(action.getDate());
             return true;
         }
         return false;
@@ -55,11 +55,11 @@ public class Activity extends Node{
     {
         StringBuilder string = new StringBuilder();
         string.append("Http : ");
-        string.append(children.get(0).toString()).append("\n");
+        string.append(getChildren().get(0).toString()).append("\n");
         string.append("USB : ");
-        string.append(children.get(1).toString()).append("\n");
+        string.append(getChildren().get(1).toString()).append("\n");
         string.append("Login : ");
-        string.append(children.get(2).toString()).append("\n");
+        string.append(getChildren().get(2).toString()).append("\n");
         return string.toString();
     }
 }

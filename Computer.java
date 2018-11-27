@@ -22,8 +22,8 @@ public class Computer extends Node {
     {
         StringBuilder string = new StringBuilder("used_pc : " + this.user_pc + "\n");
 
-        string.append("Histogram : ").append(Arrays.toString(histogram));
-        for(Node node : this.children){
+        string.append("Histogram : ").append(Arrays.toString(getHistogram()));
+        for(Node node : this.getChildren()){
            string.append("\n").append(node);
         }
         return string.toString();

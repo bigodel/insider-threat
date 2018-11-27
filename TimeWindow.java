@@ -27,7 +27,7 @@ public class TimeWindow extends Node{
     public String toString()
     {
         StringBuilder string = new StringBuilder("Pcs");
-        for(Node node : this.children){
+        for(Node node : this.getChildren()){
            string.append("\n").append(node);
         }
         return string.toString();

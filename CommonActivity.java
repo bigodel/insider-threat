@@ -15,7 +15,7 @@ class CommonActivity extends Node
     {
         if(!actions.contains(action)){
             actions.add(action);
-            this.histogram[action.getDate().getHours()] +=1;
+            this.incrementHistogram(action.getDate());
             return true;
         }
         return false;
@@ -24,7 +24,7 @@ class CommonActivity extends Node
     public String toString()
     {
         StringBuilder string = new StringBuilder("Histogram : ");
-        string.append(Arrays.toString(histogram));
+        string.append(Arrays.toString(getHistogram()));
         return string.toString();
     }
 

@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Tree
@@ -44,8 +45,9 @@ public class Tree
     {
         UserField user = null;
 
-        if (!root.children.isEmpty()) {
-            for (Node node : root.children) {
+        if (!root.getChildren().isEmpty()) {
+            ArrayList<Node> children = root.getChildren();
+            for (Node node : children) {
                 UserField userNode = (UserField) node;
 
                 if (userNode.getUser_id() != null &&
@@ -58,7 +60,7 @@ public class Tree
 
         if (user == null) {
             user = new UserField(log);
-            root.children.add(user);
+            root.addChildren(user);
         }
         else {
             user.updateFields(log.getEmployee_name(), log.getDomain(),
@@ -69,82 +71,87 @@ public class Tree
     private void addCommonLog(CommonLog log)
     {
         UserField user = null;
-
-        if (!root.children.isEmpty()) {
-            for (Node node : root.children) {
+        ArrayList<Node> children = root.getChildren();
+        
+        if (!children.isEmpty()) {
+            for (Node node : children) {
                 UserField userNode = (UserField) node;
-
+                
                 if (userNode.getUser_id().equals(log.getUser())) {
                     user = userNode;
                 }
             }
         }
-
+        
         if (user == null) {
             user = new UserField(log.getUser());
-            root.children.add(user);
+            root.addChildren(user);
         }
-
+        
         // this is a stub version, using a undefined timewindow
         TimeWindow timeWindow = null;
-        if (user.children.size() == 0){
+        if (user.getChildren().isEmpty()){
             timeWindow = new TimeWindow();
-            user.children.add(timeWindow);
+            user.addChildren(timeWindow);
         }
         else {
-            timeWindow = (TimeWindow) user.children.get(0);
+            timeWindow = (TimeWindow) user.getChildren().get(0);
         }
+        
+        ArrayList<Node> TimeChildren = timeWindow.getChildren();
 
         Computer pc = null;
-        for (Node node : timeWindow.children) {
+        for (Node node : TimeChildren) {
             Computer computerNode = (Computer) node;
             if (computerNode.getUser_pc().equals(log.getPc())) {
                 pc = computerNode;
             }
         }
-
+        
         if (pc == null) {
             pc = new Computer(log.getPc());
-            timeWindow.children.add(pc);
+            timeWindow.addChildren(pc);
         }
+
+        ArrayList<Node> PcChildren = pc.getChildren();
 
         Activity activity = null;
-        if (pc.children.size() == 0) {
+        if (PcChildren.isEmpty()) {
             activity = new Activity();
-            pc.children.add(activity);
+            PcChildren.add(activity);
         }
         else {
-            activity = (Activity) pc.children.get(0);
+            activity = (Activity) PcChildren.get(0);
         }
-
+        
         Action action;
         boolean succesfullInsertion = false;
-
+        
         switch (currentLogType) {
-        case Http:
-            action = new Url(log.getActivity(), log.getDate());
-
-            if (activity.addAction(action)) {
-                succesfullInsertion = true;
-            }
-
-            break;
-        case Device:
-            action = new Usb(log.getActivity(), log.getDate());
-
-            if (activity.addAction(action)) {
-                succesfullInsertion = true;
-            }
-
-            break;
-        case Login:
-            action = new Login(log.getActivity(), log.getDate());
-
-            if (activity.addAction(action)) {
-                succesfullInsertion = true;
-            }
-
-            break;
+            case Http:
+                action = new Url(log.getActivity(), log.getDate());
+                
+                if (activity.addAction(action)) {
+                    succesfullInsertion = true;
+                }
+                
+                break;
+            case Device:
+                action = new Usb(log.getActivity(), log.getDate());
+                
+                if (activity.addAction(action)) {
+                    succesfullInsertion = true;
+                }
+                
+                break;
+            case Login:
+                action = new Login(log.getActivity(), log.getDate());
+                
+                if (activity.addAction(action)) {
+                    succesfullInsertion = true;
+                }
+                
+                break;
         }
         if (succesfullInsertion) {
             Date dateOfAction = log.getDate();
@@ -153,16 +160,17 @@ public class Tree
             activity.incrementHistogram(dateOfAction);
         }
     }
-
-    @Override
-    public String toString()
-    {
-        StringBuilder string = new StringBuilder("Tree \n");
-
-        for (Node node : root.children) {
-            string.append(node).append("\n");
+        
+        @Override
+        public String toString()
+        {
+            StringBuilder string = new StringBuilder("Tree \n");
+           
+            ArrayList<Node> children = root.getChildren();
+            for (Node node : children) {
+                string.append(node).append("\n");
+            }
+            
+            return string.toString();
         }
-
-        return string.toString();
     }
-}
