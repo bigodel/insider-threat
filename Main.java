@@ -11,7 +11,6 @@ public class Main {
         //parser.setFile(new File("r1/device.csv"));
         ArrayList<File> files = new ArrayList<File>();
         files.add(new File("r1/device.csv"));
-        files.add(new File("r1/http.csv"));
         files.add(new File("r1/LDAP/2009-12.csv"));
         files.add(new File("r1/LDAP/2010-01.csv"));
         files.add(new File("r1/LDAP/2010-02.csv"));
@@ -30,6 +29,7 @@ public class Main {
         files.add(new File("r1/LDAP/2011-03.csv"));
         files.add(new File("r1/LDAP/2011-04.csv"));
         files.add(new File("r1/LDAP/2011-05.csv"));
+        files.add(new File("r1/http.csv"));
         Tree tree = new Tree();
         //        parser.setFile(new File("r1/LDAP/2009-12.csv"));
 
@@ -47,6 +47,7 @@ public class Main {
             }
 
         }
-        System.out.println(tree);
+        System.out.println(tree.findMostSuspiciousEmployee());
+//        System.out.println(tree);
     }
 }

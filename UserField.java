@@ -23,6 +23,7 @@ public class UserField extends Node {
     public UserField(LDAPLog log)
     {
         this.employee_name = log.getEmployee_name();
+        this.user_id = "DTAA/" + log.getUser_id();
         this.domain = log.getDomain();
         this.email = log.getEmail();
         this.role = log.getRole();
