@@ -3,12 +3,11 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Main {
-
-    public static void main(String[] args) {
-
+public class Main
+{
+    public static void main(String[] args)
+    {
         Parser parser = new Parser();
-        //parser.setFile(new File("r1/device.csv"));
         ArrayList<File> files = new ArrayList<File>();
         files.add(new File("r1/device.csv"));
         files.add(new File("r1/LDAP/2009-12.csv"));
@@ -31,23 +30,22 @@ public class Main {
         files.add(new File("r1/LDAP/2011-05.csv"));
         files.add(new File("r1/http.csv"));
         Tree tree = new Tree();
-        //        parser.setFile(new File("r1/LDAP/2009-12.csv"));
 
-        for(File file : files){
+        for (File file : files) {
             int line = 0;
             parser.setFile(file);
 
             while (parser.hasNextLine()) {
-
                 LogEntry log = parser.parseNextLine();
 
-                //System.out.println(log);
+                // System.out.println(log);
                 tree.addLogEntry(log);
-//                System.out.println("line : " + " " + ++line);
+                // System.out.println("line : " + " " + ++line);
             }
 
         }
+
         System.out.println(tree.findMostSuspiciousEmployee());
-//        System.out.println(tree);
+        // System.out.println(tree);
     }
 }

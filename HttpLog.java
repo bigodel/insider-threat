@@ -4,8 +4,8 @@ import java.util.Date;
  * Log class for internet access
  * @author cyborg
  */
-public class HttpLog extends CommonLog {
-   
+public class HttpLog extends CommonLog
+{
     private String url;
 
     /**

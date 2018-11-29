@@ -8,12 +8,9 @@ import java.util.NoSuchElementException;
  *
  * @author cyborg
  */
-public class Parser {
-   
-    public enum LogType {
-        Device, Http, Logon, LDAP
-    }
-
+public class Parser
+{
+    public enum LogType { Device, Http, Logon, LDAP }
     private Scanner sc;
     private LogType logType;
 
@@ -21,18 +18,19 @@ public class Parser {
      *
      * @param path File to be read
      */
-    public final void setFile( File path ){
+    public final void setFile(File path)
+    {
         try {
             FileReader file = new FileReader(path.getPath());
             sc = new Scanner(file);
-            
-            if(path.getParent().contains("LDAP")){
+
+            if(path.getParent().contains("LDAP")) {
                 logType = LogType.LDAP;
                 // skips unused line
                 sc.nextLine();
             }
-
-            else switch(path.getName()){
+            else {
+                switch(path.getName()) {
                 case "device.csv":
                     // skips unused line
                     sc.nextLine();
@@ -42,16 +40,16 @@ public class Parser {
                 case "http.csv":
                     logType = LogType.Http;
                     break;
-                
+
                 case "logon.csv":
                     // skips unused line
                     logType = LogType.Logon;
                     break;
 
                 default:
-                    throw new IllegalArgumentException("Not a log file");
-            } 
-             
+                    throw new IllegalArgumentException("Not a log file.");
+                }
+            }
         }
         catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -60,17 +58,15 @@ public class Parser {
 
     /**
      *
-     * @return Returns a LogEntry that can be more easily analysed 
+     * @return Returns a LogEntry that can be more easily analysed
      */
-    public LogEntry parseNextLine(){
-        
-        if(sc.hasNextLine()){
-        
-            if(logType == LogType.LDAP)
+    public LogEntry parseNextLine()
+    {
+        if (sc.hasNextLine()) {
+            if (logType == LogType.LDAP)
                 return parseLDAPLogLine(sc.nextLine());
-
-            else return parseCommonLogLine(sc.nextLine());
-
+            else
+                return parseCommonLogLine(sc.nextLine());
         }
         else throw new NoSuchElementException("There aren't any lines to be read anymore");
     }
@@ -81,15 +77,16 @@ public class Parser {
     }
 
     /**
-     * Default constructor
+     * Default constructor.
      */
     public Parser() {}
-   
+
     /**
      * Constructor that calls setFile to the chosen file
      * @param path File to be parsed
      */
-    public Parser(File path){
+    public Parser(File path)
+    {
         this.setFile(path);
     }
 
@@ -97,13 +94,14 @@ public class Parser {
      * Does the same as Scanner.hasNext()
      * @return True if hasn't reached end of file, false otherwise
      */
-    public boolean hasNextLine(){
+    public boolean hasNextLine()
+    {
         return sc.hasNext();
     }
 
-    private Date parseDate(String input){
-   
-        String data = input.split(" ")[0]; 
+    private Date parseDate(String input)
+    {
+        String data = input.split(" ")[0];
         String hora = input.split(" ")[1];
 
         String [] dataNumbers = data.split("/");
@@ -111,14 +109,20 @@ public class Parser {
 
         ArrayList<Integer> infoToDate = new ArrayList();
 
-        for(String number : dataNumbers){
+        for(String number : dataNumbers) {
             infoToDate.add(Integer.parseInt(number));
         }
-        for(String horas : hourNumbers){
+
+        for(String horas : hourNumbers) {
             infoToDate.add(Integer.parseInt(horas));
         }
-        Date date = new Date(infoToDate.get(2) - 1900,infoToDate.get(0),infoToDate.get(1),
-                    infoToDate.get(3),infoToDate.get(4),infoToDate.get(5));
+
+        Date date = new Date(infoToDate.get(2) - 1900,
+                             infoToDate.get(0),
+                             infoToDate.get(1),
+                             infoToDate.get(3),
+                             infoToDate.get(4),
+                             infoToDate.get(5));
 
         infoToDate.clear();
 
@@ -130,12 +134,11 @@ public class Parser {
      * @param logLine line to be parsed
      * @return LDAPLog class representation of the parsed line
      */
-    public LDAPLog parseLDAPLogLine(String logLine){
-
+    public LDAPLog parseLDAPLogLine(String logLine)
+    {
         String [] line = logLine.split(",");
 
-        return new LDAPLog (line[0],line[1],line[2],line[3],line[4]);
-
+        return new LDAPLog (line[0], line[1], line[2], line[3], line[4]);
     }
 
     /**
@@ -143,61 +146,25 @@ public class Parser {
      * @param logLine
      * @return LDAPLog class representation of the parsed line
      */
-    public CommonLog parseCommonLogLine(String logLine){
-
+    public CommonLog parseCommonLogLine(String logLine)
+    {
         String [] line = logLine.split(",");
 
         String id = line[0].substring(1, line[0].length()-1);
         Date date = parseDate(line[1]);
 
-        switch (logType){
-        
-                case Device:
-                    
-                    return new DeviceLog (id,date,line[2],line[3],line[4]);
+        switch (logType) {
+        case Device:
+            return new DeviceLog (id,date,line[2],line[3],line[4]);
 
-                case Http:
-                    return new HttpLog (id,date,line[2],line[3],line[4]);
-                
-                case Logon:
-                    return new LoginLog (id,date,line[2],line[3],line[4]);
+        case Http:
+            return new HttpLog (id,date,line[2],line[3],line[4]);
 
-                default:
-                    throw new IllegalArgumentException("Not a log file");
+        case Logon:
+            return new LoginLog (id,date,line[2],line[3],line[4]);
 
+        default:
+            throw new IllegalArgumentException("Not a log file");
         }
-
     }
-/* Deprecated functions below
-    public LoginLog parseLoginLogLine(String logLine){
-
-        String [] line = logLine.split(",");
-
-        String id = line[0].substring(1, line[0].length()-1);
-        Date date = parseDate(line[1]);
-
-        return new LoginLog (id,date,line[2],line[3],line[4]);
-
-    }
-
-    public HttpLog parseHttpLogLine(String logLine){
-
-        String [] line = logLine.split(",");
-
-        String id = line[0].substring(1, line[0].length()-1);
-        Date date = parseDate(line[1]);
-
-        return new HttpLog (id,date,line[2],line[3],line[4]);
-
-    }
-    public DeviceLog parseDeviceLogLine(String logLine){
-
-        String [] line = logLine.split(",");
-
-        String id = line[0].substring(1, line[0].length()-1);
-        Date date = parseDate(line[1]);
-
-        return new DeviceLog (id,date,line[2],line[3],line[4]);
-
-    }*/
 }

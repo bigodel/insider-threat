@@ -1,17 +1,16 @@
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class UserField extends Node {
-
+public class User extends Node
+{
     private String employee_name;
     private String user_id;
     private String domain;
     private String email;
     private String role;
 
-    public UserField(String employee_name, String user_id,
-            String domain, String email, String role)
+    public User(String employee_name, String user_id,
+                String domain, String email, String role)
     {
         this.employee_name = employee_name;
         this.user_id = user_id;
@@ -20,7 +19,7 @@ public class UserField extends Node {
         this.role = role;
     }
 
-    public UserField(LDAPLog log)
+    public User(LDAPLog log)
     {
         this.employee_name = log.getEmployee_name();
         this.user_id = "DTAA/" + log.getUser_id();
@@ -28,7 +27,8 @@ public class UserField extends Node {
         this.email = log.getEmail();
         this.role = log.getRole();
     }
-    public UserField(String user_id)
+
+    public User(String user_id)
     {
         this.user_id = user_id;
     }
@@ -38,22 +38,23 @@ public class UserField extends Node {
     {
         StringBuilder string = new StringBuilder(employee_name + " " + user_id);
         string.append(" Histogram : ").append(Arrays.toString(getHistogram()));
+
         ArrayList<Node> children = getChildren();
-        for(Node node : children){
+        for (Node node : children) {
             string.append("\n").append(node);
         }
+
         return string.toString();
     }
 
-    public void updateFields(String employee_name,
-            String domain, String email, String role)
+    public void updateFields(String employee_name, String domain,
+                             String email, String role)
     {
         boolean missingInfo;
 
-        missingInfo = this.employee_name == null |this.domain == null | this.email == null | this.role == null;
+        missingInfo = this.employee_name == null || this.domain == null || this.email == null || this.role == null;
 
-
-        if(missingInfo){
+        if (missingInfo) {
             this.employee_name = employee_name;
             this.domain = domain;
             this.email = email;
@@ -61,23 +62,28 @@ public class UserField extends Node {
         }
     }
 
-    public String getEmployee_name() {
+    public String getEmployee_name()
+    {
         return employee_name;
     }
 
-    public String getUser_id() {
+    public String getUser_id()
+    {
         return user_id;
     }
 
-    public String getDomain() {
+    public String getDomain()
+    {
         return domain;
     }
 
-    public String getEmail() {
+    public String getEmail()
+    {
         return email;
     }
 
-    public String getRole() {
+    public String getRole()
+    {
         return role;
     }
 }

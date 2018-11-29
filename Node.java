@@ -1,22 +1,24 @@
 import java.util.ArrayList;
-import java.util.Date ;
+import java.util.Date;
 
-public class Node {
-
+public class Node
+{
     private ArrayList<Node> children;
-    private int[] histogram = new int [24];
+    private int[] histogram = new int[24];
 
-    public ArrayList<Node> getChildren() {
+    public ArrayList<Node> getChildren()
+    {
         return children;
     }
 
-    public int[] getHistogram() {
+    public int[] getHistogram()
+    {
         return histogram;
     }
 
     public Node()
     {
-        children = new ArrayList<> ();
+        children = new ArrayList<>();
     }
 
     final public void addChildren(Node node)

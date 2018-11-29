@@ -4,12 +4,13 @@ import java.util.Date;
  *
  * @author cyborg
  */
-public class LoginLog extends CommonLog {
-   
+public class LoginLog extends CommonLog
+{
     private String login;
 
     /**
-     * Default Constructor
+     * Default constructor.
+     *
      * @param id action id
      * @param date moment the action took place
      * @param user User that made the action
@@ -18,16 +19,15 @@ public class LoginLog extends CommonLog {
      */
     public LoginLog(String id, Date date,String user , String pc, String login)
     {
-        super(id,date,user,pc);
+        super(id, date, user, pc);
         this.login = login;
     }
 
+    /**
+     * @return The login activity.
+     */
     public String getActivity()
     {
         return this.login;
-    }
-
-    public String getLogin() {
-        return login;
     }
 }

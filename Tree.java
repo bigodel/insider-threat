@@ -4,21 +4,17 @@ import java.util.Date;
 
 public class Tree
 {
-    private enum LogType
-    {
-        Http, Device, Login, LDAP;
-    }
-    
-    private int [] AllUsersHistogram = new int[24];
+    private enum LogType { Http, Device, Login, LDAP; }
+    private int[] AllUsersHistogram = new int[24];
     private LogType currentLogType;
     private Node root;
-    int amountOfUsers;
-    
+    private int amountOfUsers;
+
     public Tree()
     {
-        root = new Node ();
+        root = new Node();
     }
-    
+
     public void addLogEntry(LogEntry log)
     {
         if (log instanceof HttpLog) {
@@ -33,66 +29,66 @@ public class Tree
         else if (log instanceof LDAPLog) {
             currentLogType = LogType.LDAP;
         }
-        
+
         switch (currentLogType) {
-            case LDAP:
-                addLDAPLog((LDAPLog) log);
-                break;
-                
-            default:
-                addCommonLog((CommonLog) log);
+        case LDAP:
+            addLDAPLog((LDAPLog) log);
+            break;
+
+        default:
+            addCommonLog((CommonLog) log);
         }
     }
-    
+
     private void addLDAPLog(LDAPLog log)
     {
-        UserField user = null;
-        
+        User user = null;
+
         if (!root.getChildren().isEmpty()) {
             ArrayList<Node> children = root.getChildren();
             for (Node node : children) {
-                UserField userNode = (UserField) node;
-                
+                User userNode = (User) node;
+
                 if (userNode.getUser_id() != null &&
                     userNode.getUser_id().contains(log.getUser_id())) {
-                    
+
                     user = userNode;
                 }
             }
         }
-        
+
         if (user == null) {
-            user = new UserField(log);
+            user = new User(log);
             root.addChildren(user);
             amountOfUsers += 1;
         }
         else {
             user.updateFields(log.getEmployee_name(), log.getDomain(),
-                log.getEmail(), log.getRole());
+                              log.getEmail(), log.getRole());
         }
     }
-    
+
     private void addCommonLog(CommonLog log)
     {
-        UserField user = null;
+        User user = null;
         ArrayList<Node> children = root.getChildren();
-        
+
         if (!children.isEmpty()) {
             for (Node node : children) {
-                UserField userNode = (UserField) node;
-                
+                User userNode = (User) node;
+
                 if (userNode.getUser_id().equals(log.getUser())) {
                     user = userNode;
                 }
             }
         }
-        
+
         if (user == null) {
-            user = new UserField(log.getUser());
+            user = new User(log.getUser());
             root.addChildren(user);
             amountOfUsers += 1;
         }
-        
+
         // this is a stub version, using a undefined timewindow
         TimeWindow timeWindow = null;
         if (user.getChildren().isEmpty()){
@@ -102,9 +98,9 @@ public class Tree
         else {
             timeWindow = (TimeWindow) user.getChildren().get(0);
         }
-        
+
         ArrayList<Node> TimeChildren = timeWindow.getChildren();
-        
+
         Computer pc = null;
         for (Node node : TimeChildren) {
             Computer computerNode = (Computer) node;
@@ -112,14 +108,14 @@ public class Tree
                 pc = computerNode;
             }
         }
-        
+
         if (pc == null) {
             pc = new Computer(log.getPc());
             timeWindow.addChildren(pc);
         }
-        
+
         ArrayList<Node> PcChildren = pc.getChildren();
-        
+
         Activity activity = null;
         if (PcChildren.isEmpty()) {
             activity = new Activity();
@@ -128,34 +124,34 @@ public class Tree
         else {
             activity = (Activity) PcChildren.get(0);
         }
-        
+
         Action action;
         boolean succesfullInsertion = false;
-        
+
         switch (currentLogType) {
             case Http:
                 action = new Url(log.getActivity(), log.getDate());
-                
+
                 if (activity.addAction(action)) {
                     succesfullInsertion = true;
                 }
-                
+
                 break;
             case Device:
                 action = new Usb(log.getActivity(), log.getDate());
-                
+
                 if (activity.addAction(action)) {
                     succesfullInsertion = true;
                 }
-                
+
                 break;
             case Login:
                 action = new Login(log.getActivity(), log.getDate());
-                
+
                 if (activity.addAction(action)) {
                     succesfullInsertion = true;
                 }
-                
+
                 break;
         }
         if (succesfullInsertion) {
@@ -166,17 +162,17 @@ public class Tree
             AllUsersHistogram[dateOfAction.getHours()]+=1;
         }
     }
-    
+
     @Override
     public String toString()
     {
         StringBuilder string = new StringBuilder("Tree \n");
-        
+
         ArrayList<Node> children = root.getChildren();
         for (Node node : children) {
             string.append(node).append("\n");
         }
-        
+
         return string.toString();
     }
 
@@ -192,7 +188,7 @@ public class Tree
         ArrayList<Node> children = root.getChildren();
         if (!children.isEmpty()) {
             for (Node node : children) {
-                UserField userNode = (UserField) node;
+                User userNode = (User) node;
                 int [] currentUserHistogram =  userNode.getHistogram();
                 int difference = 0;
 
@@ -219,16 +215,16 @@ public class Tree
         /* todo print a better representation */
         return root.getChildren().get(suspiciousIndex).toString();
     }
-    
+
     public String findUserById(String user_id)
     {
-        UserField user = null;
+        User user = null;
         ArrayList<Node> children = root.getChildren();
-        
+
         if (!children.isEmpty()) {
             for (Node node : children) {
-                UserField userNode = (UserField) node;
-                
+                User userNode = (User) node;
+
                 if (userNode.getUser_id().equals(user_id)) {
                     user = userNode;
                 }
@@ -238,16 +234,16 @@ public class Tree
 
         else return "User Not Found";
     }
-    
+
     public String findUserByName(String user_name)
     {
-        UserField user = null;
+        User user = null;
         ArrayList<Node> children = root.getChildren();
-        
+
         if (!children.isEmpty()) {
             for (Node node : children) {
-                UserField userNode = (UserField) node;
-                
+                User userNode = (User) node;
+
                 if (userNode.getEmployee_name().equals(user_name)) {
                     user = userNode;
                 }
