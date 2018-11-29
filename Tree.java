@@ -5,7 +5,6 @@ import java.util.Date;
 public class Tree
 {
     private enum LogType { Http, Device, Login, LDAP; }
-    private int[] AllUsersHistogram = new int[24];
     private LogType currentLogType;
     private Node root;
     private int amountOfUsers;
@@ -159,7 +158,7 @@ public class Tree
             user.incrementHistogram(dateOfAction);
             pc.incrementHistogram(dateOfAction);
             activity.incrementHistogram(dateOfAction);
-            AllUsersHistogram[dateOfAction.getHours()]+=1;
+            root.incrementHistogram(dateOfAction);
         }
     }
 
@@ -176,26 +175,29 @@ public class Tree
         return string.toString();
     }
 
-    public String findMostSuspiciousEmployee(){
-        int [] mean = new int[24];
-        int [] usersDistances = new int[amountOfUsers];
+    public String findMostSuspiciousEmployee()
+    {
+        int[] mean = new int[24];
+        int[] usersDistances = new int[amountOfUsers];
         int currentUserIndex = 0;
+        int[] thisHistogram = root.getHistogram();
 
         for (int i = 0; i < 23; i++) {
-            mean[i] =  AllUsersHistogram[i]/amountOfUsers;
+            mean[i] =  thisHistogram[i]/amountOfUsers;
         }
 
         ArrayList<Node> children = root.getChildren();
         if (!children.isEmpty()) {
             for (Node node : children) {
                 User userNode = (User) node;
-                int [] currentUserHistogram =  userNode.getHistogram();
+                int[] currentUserHistogram =  userNode.getHistogram();
                 int difference = 0;
 
                 for (int i = 0; i < 23; i++) {
                     difference = currentUserHistogram[i] - mean[i];
                     difference = difference * difference;
                 }
+
                 usersDistances[currentUserIndex] = (int) sqrt(difference);
                 currentUserIndex += 1;
                 difference = 0;
@@ -206,10 +208,10 @@ public class Tree
         int suspiciousIndex = 0;
         int max = usersDistances[0];
         for (int i = 0; i < amountOfUsers; i++) {
-           if(usersDistances[i] > max){
+            if (usersDistances[i] > max) {
                 suspiciousIndex = i;
                 max = usersDistances[i];
-           }
+            }
         }
 
         /* todo print a better representation */
