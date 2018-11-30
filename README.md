@@ -11,9 +11,11 @@ A partir da leitura de logs de usuários de uma empresa fictícia, este projeto 
 
 ## Execução
 
-Para compilar o programa utilize o seguinte comando no diretório raiz do
-projeto `javac -d . -classpath src src/Main.java`
-para executá-lo utilize `java Main <diretorio>` onde o <diretorio> é
+Para compilar o programa utilize o seguinte comando no diretório raiz do projeto:
+
+`javac -d . -classpath src src/Main.java`
+
+Para executá-lo utilize `java Main <diretorio>` onde o <diretorio> é
 simplesmente o local onde estão armazenados os logs, caso nenhum argumento seja
 dado por padrão o programa agirá como se tivesse sido utilizado `java Main res`.
 
