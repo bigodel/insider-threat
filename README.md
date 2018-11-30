@@ -3,8 +3,6 @@
 Repositório criado com fins didáticos para o projeto final da disciplina 
 IMD0040 - Linguagem de Programação II do Bacharelado em Tecnologia da Informação da Universidade Federal do Rio Grande do Norte(UFRN).
 
-Este repositório contém os arquivos correspondentes ao projeto final da disciplina IMD0040 - Linguagem de Programação II, ofertada para o Bacheralado em Tecnlogia de Informação(BTI) na Universidade Federal do Rio Grande do Norte(UFRN).
-
 ## Descrição do projeto
 
 A partir da leitura de logs de usuários de uma empresa fictícia, este projeto tem como objetivo criar uma representação de árvore com uma representação visualmente melhor e mais eficiente do que simplesmente planilhas de dados. Após a construção da árvore são analisados os histogramas de atividade de cada usuário e identificados os outliers. Após a identificação dos usuários suspeitos o utilizador do sistema pode verificar o perfil de algum dos suspeitos para confirmar (ou não) as suspeitas.
