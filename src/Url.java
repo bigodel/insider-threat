@@ -12,7 +12,7 @@ public class Url extends Action {
     @Override
     public String toString()
     {
-        StringBuilder string = new StringBuilder("Url ");
+        StringBuilder string = new StringBuilder();
         string.append(super.toString());
         return string.toString();
     }

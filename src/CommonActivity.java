@@ -1,20 +1,20 @@
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Arrays;
 
 class CommonActivity extends Node
 {
 
-    ArrayList<Action> actions;
+    LinkedList<String> actions;
 
      
     public CommonActivity() {
-        actions = new ArrayList<Action> ();
+        actions = new LinkedList<> ();
     }
 
     public boolean addAction(Action action)
     {
-        if(!actions.contains(action)){
-            actions.add(action);
+        if(!actions.contains(action.getAction())){
+            actions.add(action.getAction());
             this.incrementHistogram(action.getDate());
             return true;
         }
@@ -24,7 +24,11 @@ class CommonActivity extends Node
     public String toString()
     {
         StringBuilder string = new StringBuilder("Histogram : ");
-        string.append(Arrays.toString(getHistogram()));
+        string.append(Arrays.toString(getHistogram())).append("\n");
+
+        for(String action : actions){
+            string.append(action).append(" ");
+        }
         return string.toString();
     }
 

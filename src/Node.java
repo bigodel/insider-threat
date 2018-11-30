@@ -1,12 +1,12 @@
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Date;
 
 public class Node
 {
-    private ArrayList<Node> children;
+    private LinkedList<Node> children;
     private int[] histogram = new int[24];
 
-    public ArrayList<Node> getChildren()
+    public LinkedList<Node> getChildren()
     {
         return children;
     }
@@ -18,7 +18,7 @@ public class Node
 
     public Node()
     {
-        children = new ArrayList<>();
+        children = new LinkedList<>();
     }
 
     final public void addChildren(Node node)

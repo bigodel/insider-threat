@@ -20,7 +20,7 @@ public class Login extends Action {
     @Override
     public String toString()
     {
-        StringBuilder string = new StringBuilder("Login ");
+        StringBuilder string = new StringBuilder();
         string.append(super.toString());
         return string.toString();
     }

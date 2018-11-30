@@ -20,7 +20,7 @@ public class Usb extends Action {
     @Override
     public String toString()
     {
-        StringBuilder string = new StringBuilder("Usb ");
+        StringBuilder string = new StringBuilder();
         string.append(super.toString());
         return string.toString();
     }

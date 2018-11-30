@@ -20,6 +20,9 @@ public class Parser
      */
     public final void setFile(File path)
     {
+        if(!path.getName().contains(".csv")){
+            throw new IllegalArgumentException("Not a log file.");
+        }
         try {
             FileReader file = new FileReader(path.getPath());
             sc = new Scanner(file);
@@ -43,11 +46,12 @@ public class Parser
 
                 case "logon.csv":
                     // skips unused line
+                    sc.nextLine();
                     logType = LogType.Logon;
                     break;
 
                 default:
-                    throw new IllegalArgumentException("Not a log file.");
+                    logType = LogType.LDAP;
                 }
             }
         }

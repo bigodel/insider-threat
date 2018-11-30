@@ -17,7 +17,6 @@ abstract public class Action extends Node{
      */
     public Action (/*String id*/ String action ,Date date)
    {
-//    this.id = id;
     this.action = action;
     this.date = date;
    } 
@@ -25,7 +24,7 @@ abstract public class Action extends Node{
    @Override
    public String toString()
    {
-       /*return this.id + " " + */ return this.action; 
+       return this.action; 
    }
 
     /**

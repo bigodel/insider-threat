@@ -5,20 +5,13 @@ import java.util.Date;
  *
  * @author cyborg
  */
-public class Activity extends Node{
-
-    /*private enum Indexes{
-        Http = 0, USB = 1, LOGIN = 2;
-    }*/
-
-    //public ArrayList < ArrayList<Action> > actions; 
-    //public ArrayList <Node> actions;
+public class Activities extends Node{
 
     /**
      *
      */
 
-    public Activity () 
+    public Activities () 
     {
        // actions = new ArrayList< ArrayList < Action >> ();
         addChildren(new CommonActivity ());

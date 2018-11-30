@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 
 public class User extends Node
 {
@@ -39,7 +40,7 @@ public class User extends Node
         StringBuilder string = new StringBuilder(employee_name + " " + user_id);
         string.append(" Histogram : ").append(Arrays.toString(getHistogram()));
 
-        ArrayList<Node> children = getChildren();
+        LinkedList<Node> children = getChildren();
         for (Node node : children) {
             string.append("\n").append(node);
         }
