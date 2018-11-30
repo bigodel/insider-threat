@@ -18,7 +18,7 @@ Para compilar o programa utilize o seguinte comando no diretório raiz do projet
 Antes de executar o programa é necessário que existam arquivos de log com a formatação correta para serem utilizados.
 Neste [_link_](https://box.imd.ufrn.br/index.php/s/0JPj31JpAKp14JH) pode-se baixar a pasta r1 para este fim.
 
-Para executá-lo utilize `java Main <diretorio>` onde o <diretorio> é
+Para executá-lo utilize `java Main <diretorio>` onde o diretorio é
 simplesmente o local onde estão armazenados os logs. caso nenhum argumento seja
 dado por padrão o programa agirá como se tivesse sido utilizado `java Main r1`. (Não funcionará sem a pasta r1 do link acima).
 
